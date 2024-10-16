@@ -7,7 +7,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.dev") # choose your settings(dev, prod, or stg)
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.dev")  # choose your settings(dev, prod, or stg)
     if sys.argv[1].lower() == 'test':
         print("NOTE: running black formatting")
         subprocess.run(["black", "-config", ".black.toml", "."])
