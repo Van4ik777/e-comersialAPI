@@ -1,4 +1,4 @@
 [flake8]
 max-line-length=120
-exclude=migrations,.venv,dev,prod,stg
+exclude=migrations,.venv,dev.py,prod.py,stg.py
 ignore = F401
