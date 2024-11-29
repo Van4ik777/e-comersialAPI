@@ -1,0 +1,30 @@
+
+services:
+  backend:
+    build: .
+    container_name: e-comersialapi
+    working_dir: /app/src
+    ports:
+      - "8010:8000"
+    command:
+      - bash
+      - ../commands/start_server_dev.sh
+    volumes:
+      - ./src:/app/src
+      - ./commands:/app/commands
+    env_file:
+      - .env
+    depends_on:
+      - postgres  #
+
+  postgres:
+    image: postgres:16.4
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+volumes:
+  pg_data:
