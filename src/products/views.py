@@ -21,22 +21,30 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        category_id = self.request.query_params.get("category_id")
-        if category_id:
-            queryset = queryset.filter(category_id=category_id)
+
+        params = self.request.query_params
+        for key, value in params.items():
+            if key == "category_id":
+                queryset = queryset.filter(category_id=value)
+            elif key == "name":
+                queryset = queryset.filter(name__icontains=value)
+            elif key == "min_price":
+                queryset = queryset.filter(price__gte=value)
+            elif key == "max_price":
+                queryset = queryset.filter(price__lte=value)
+
         return queryset
 
-    #@action(detail=False, methods=["get"], url_path="by-category")
-    #def list_by_category(self, request):
-    #    category_id = request.query_params.get("category_id")
-    #    if not category_id:
-    #        return Response(
-    #            {"error": "category_id parameter is required"},
-    #            status=400
-    #        )
-    #    products = Product.objects.filter(category_id=category_id)
-    #    serializer = self.get_serializer(products, many=True)
-    #    return Response(serializer.data)
+    @action(detail=False, methods=["get"], url_path="filter")
+    def filter_products(self, request):
+        queryset = self.get_queryset()
+        if not queryset.exists():
+            return Response(
+                {"message": "No products found matching your criteria."},
+                status=404
+            )
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class ProductDetailViewSet(viewsets.ReadOnlyModelViewSet):
