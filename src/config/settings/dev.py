@@ -14,11 +14,11 @@ MIDDLEWARE += []
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB", "default_db"),
-        "USER": os.getenv("POSTGRES_USER", "default_user"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "default_password"),
-        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
-        "PORT": os.getenv("POSTGRES_PORT", "5432"),
+        "NAME": 'eComersial',
+        "USER": "admin",
+        "PASSWORD": "admin",
+        "HOST": "postgres",
+        "PORT": "5432",
     }
 }
 STATIC_URL = "static/"

@@ -42,14 +42,14 @@ jobs:
         pip install -r requirements.txt
     - name: Set up database
       env:
-        DATABASE_URL: "postgres://postgres:postgres@localhost:5432/eComersial"
+        DATABASE_URL: "postgres://postgres:postgres@localhost:5433/eComersial"
       run: |
-        export DATABASE_URL="postgres://postgres:postgres@localhost:5432/eComersial"
+        export DATABASE_URL="postgres://postgres:postgres@localhost:5433/eComersial"
         python src/manage.py makemigrations
         python src/manage.py migrate
     - name: Run Tests
       env:
-        DATABASE_URL: "postgres://postgres:postgres@localhost:5432/eComersial"
+        DATABASE_URL: "postgres://postgres:postgres@localhost:5433/eComersial"
       run: |
         python src/manage.py test
         flake8
